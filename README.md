@@ -1,7 +1,6 @@
 <div align="center">
 
 # A Small Chat with Chinese Language Model: ChatLM-Chinese-0.2B 
- [中文](./README.md)  | English
 
 </div>
 
