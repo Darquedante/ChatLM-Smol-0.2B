@@ -1,6 +1,6 @@
 <div align="center">
 
-# A Small Chat with Chinese Language Model: ChatLM-Chinese-0.2B 
+# A Smol Conversation 0.2 Billion Smol Model (ChatLM-Smol-0.2B)
 
 </div>
 
@@ -8,7 +8,7 @@
 
 Today's large language models tend to have large parameters, and consumer-grade computers are slow to do simple inference, let alone train a model from scratch. The goal of this project is to organize the training process of generative language models, including data cleaning, tokenizer training, model pre-training, SFT instruction fine-tuning, RLHF optimization, etc.
 
-ChatLM-mini-Chinese is a small Chinese chat model with only 0.2B (added shared weight is about 210M) parameters. It can be pre-trained on  machine with a minimum of 4GB of GPU memory (`batch_size=1`, `fp16` or `bf16`), `float16` loading and inference only require a minimum of 512MB of GPU memory.
+ChatLM-Smol-0.2B is a smol chat model with only 0.2B (added shared weight is about 210M) parameters. It can be pre-trained on  machine with a minimum of 4GB of GPU memory (`batch_size=1`, `fp16` or `bf16`), `float16` loading and inference only require a minimum of 512MB of GPU memory.
 
 - Make public all pre-training, SFT instruction fine-tuning, and DPO preference optimization datasets sources.
 - Use the `Huggingface` NLP framework, including `transformers`, `accelerate`, `trl`, `peft`, etc.
@@ -32,6 +32,12 @@ If you need to do retrieval augmented generation (RAG) based on small models, yo
 
 🟢**Latest Update**
 
+<summary> <b>2024-01-27</b> </summary>
+- Forked the repo and started the English translation process <br/>
+- Updated readme documentation. <br/>
+</details>
+
+<details close>
 <summary> <b>2024-01-07</b> </summary>
 - Add document deduplication based on mini hash during the data cleaning process (in this project, it's to deduplicated the rows of datasets actually). Prevent the model from spitting out training data during inference after encountering multiple repeated data. <br/>
 - Add the `DropDatasetDuplicate` class to implement deduplication of documents from large data sets. <br/>
@@ -161,10 +167,11 @@ outs_txt = tokenizer.batch_decode(outs.cpu().numpy(), skip_special_tokens=True, 
 print(outs_txt[0])
 ```
 ```txt
-Apple是一家专注于设计和用户体验的公司，其产品在设计上注重简约、流畅和功能性，而在用户体验方面则注重用户的反馈和使用体验。作为一家领先的科技公司，苹果公司一直致力于为用户提供最优质的产品和服务，不断推陈出新，不断创新和改进，以满足不断变化的市场需求。
-在iPhone、iPad和Mac等产品上，苹果公司一直保持着创新的态度，不断推出新的功能和设计，为用户提供更好的使用体验。在iPad上推出的iPad Pro和iPod touch等产品，也一直保持着优秀的用户体验。
-此外，苹果公司还致力于开发和销售软件和服务，例如iTunes、iCloud和App Store等，这些产品在市场上也获得了广泛的认可和好评。
-总的来说，苹果公司在设计、用户体验和产品创新方面都做得非常出色，为用户带来了许多便利和惊喜。
+Apple is a company that focuses on design and user experience. Its products emphasize simplicity, smoothness, and functionality in design, while placing a strong emphasis on user feedback and user experience in terms of user experience. As a leading technology company, Apple has always been committed to providing users with the highest quality products and services, continuously refreshing and innovating to meet the ever-changing market demands.
+In products such as the iPhone, iPad, and Mac, Apple maintains an innovative approach, constantly introducing new features and designs to provide users with a better user experience. Products like the iPad Pro and iPod touch, introduced on the iPad, also maintain excellent user experiences.
+Furthermore, Apple is dedicated to developing and selling software and services such as iTunes, iCloud, and the App Store. These products have also gained wide recognition and acclaim in the market.
+In summary, Apple excels in design, user experience, and product innovation, bringing convenience and delight to users.
+
 
 ```
 
@@ -237,9 +244,10 @@ This project also provides an example of using the `tokenizer` that comes with t
 1. Pre-training dataset example
 ```json
 {
-    "prompt": "对于花园街，你有什么了解或看法吗？",
-    "response": "花园街（是香港油尖旺区的一条富有特色的街道，位于九龙旺角东部，北至界限街，南至登打士街，与通菜街及洗衣街等街道平行。现时这条街道是香港著名的购物区之一。位于亚皆老街以南的一段花园街，也就是\"波鞋街\"整条街约150米长，有50多间售卖运动鞋和运动用品的店舖。旺角道至太子道西一段则为排档区，售卖成衣、蔬菜和水果等。花园街一共分成三段。明清时代，花园街是芒角村栽种花卉的地方。此外，根据历史专家郑宝鸿的考证：花园街曾是1910年代东方殷琴拿烟厂的花园。纵火案。自2005年起，花园街一带最少发生5宗纵火案，当中4宗涉及排档起火。2010年。2010年12月6日，花园街222号一个卖鞋的排档于凌晨5时许首先起火，浓烟涌往旁边住宅大厦，消防接报4"
+    "prompt": "Do you have any knowledge or opinions about Garden Street?",
+    "response": "Garden Street is a distinctive street in the Yau Tsim Mong District of Hong Kong. It is located in the eastern part of Mong Kok, running from Boundary Street in the north to Dundas Street in the south, parallel to streets like Tung Choi Street and Sai Yeung Choi Street. Currently, this street is one of the famous shopping areas in Hong Kong. The section of Garden Street south of Argyle Street, often referred to as 'Sneaker Street,' is approximately 150 meters long and houses over 50 shops selling sports shoes and sporting goods. The stretch from Mong Kok Road to Tai Po Road West is known for its street food stalls selling clothing, vegetables, and fruits. Garden Street is divided into three segments. During the Ming and Qing dynasties, it was an area where flowers were cultivated. Additionally, according to historical expert Zheng Baohong's research, Garden Street was once the garden of the Eastern Tobacco Company in the 1910s. There have been at least five cases of arson in the vicinity of Garden Street since 2005, with four of them involving stalls catching fire. In 2010, on December 6th, a shoe stall at 222 Garden Street caught fire around 5 o'clock in the morning, with thick smoke spreading to nearby residential buildings. The fire department received four reports."
 }
+
 ```
 
 2. jupyter-lab or jupyter notebook:
@@ -295,9 +303,10 @@ Example of fine-tuning dataset with sft command:
 
 ```json
 {
-    "prompt": "解释什么是欧洲启示录",
-    "response": "欧洲启示录（The Book of Revelation）是新约圣经的最后一卷书，也被称为《启示录》、《默示录》或《约翰默示录》。这本书从宗教的角度描述了世界末日的来临，以及上帝对世界的审判和拯救。 书中的主题包括来临的基督的荣耀，上帝对人性的惩罚和拯救，以及魔鬼和邪恶力量的存在。欧洲启示录是一个充满象征和暗示的文本，对于解读和理解有许多不同的方法和观点。"
+    "prompt": "Explain what the Book of Revelation is.",
+    "response": "The Book of Revelation, also known as the Apocalypse, the Revelation to John, or simply Revelation, is the final book of the New Testament in the Bible. This book provides a religious perspective on the coming of the end of the world, as well as God's judgment and salvation of the world. The themes in the book include the glory of the coming Christ, God's punishment and salvation of humanity, and the presence of the devil and evil forces. The Book of Revelation is a text filled with symbolism and hints, and there are many different methods and viewpoints for interpreting and understanding it."
 }
+
 ```
 Make your own dataset by referring to the sample `parquet` file in the `data` directory. The dataset format is: the `parquet` file is divided into two columns, one column of `prompt` text, representing the prompt, and one column of `response` text, representing the expected model. output.
 For fine-tuning details, see the `train` method under `model/trainer.py`. When `is_finetune` is set to `True`, fine-tuning will be performed. Fine-tuning will freeze the embedding layer and encoder layer by default, and only train the decoder layer. If you need to freeze other parameters, please adjust the code yourself.
@@ -327,11 +336,12 @@ Here are two common preferred methods: PPO and DPO. Please search papers and blo
     
 DPO preference optimization dataset example:
 ```json
-    {
-        "prompt": "为给定的产品创建一个创意标语。，输入：可重复使用的水瓶。",
-        "chosen": "\"保护地球，从拥有可重复使用的水瓶开始！\"",
-        "rejected": "\"让你的水瓶成为你的生活伴侣，使用可重复使用的水瓶，让你的水瓶成为你的伙伴\""
-    }
+{
+    "prompt": "Create a creative slogan for the given product: Reusable Water Bottles.",
+    "chosen": "\"Protect the Earth, starting with owning a reusable water bottle!\"",
+    "rejected": "\"Let your water bottle be your life companion, use a reusable water bottle, and make your bottle your partner.\""
+}
+
 ```
 Run preference optimization:
 ```bash
@@ -364,13 +374,12 @@ python api_demo.py
 ```
 
 API call example:
-API调用示例：
 ```bash
 curl --location '127.0.0.1:8812/api/chat' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer Bearer' \
 --data '{
-    "input_txt": "感冒了要怎么办"
+    "input_txt": "What should I do if I have a cold?" 
 }'
 ```
 ![api demo](./img/api_example.png)
@@ -382,9 +391,10 @@ Here we take the triplet information in the text as an example to do downstream 
 The original dataset is: [Baidu Triplet Extraction dataset](https://aistudio.baidu.com/datasetdetail/11384). Example of the processed fine-tuned dataset format:
 ```json
 {
-    "prompt": "请抽取出给定句子中的所有三元组。给定句子：《家乡的月亮》是宋雪莱演唱的一首歌曲，所属专辑是《久违的哥们》",
-    "response": "[(家乡的月亮,歌手,宋雪莱),(家乡的月亮,所属专辑,久违的哥们)]"
+    "prompt": "Please extract all the triplets from the given sentence. Given sentence: 'The song 'Hometown Moon' is sung by Song Xuele, and it belongs to the album 'Long-lost Buddies.'",
+    "response": "[(Hometown Moon, Singer, Song Xuele), (Hometown Moon, Album, Long-lost Buddies)]"
 }
+
 ```
 
 You can directly use the `sft_train.py` script for fine-tuning. The script [finetune_IE_task.ipynb](./finetune_examples/info_extract/finetune_IE_task.ipynb) contains the detailed decoding process. The training dataset is about `17000`, the learning rate is `5e-5`, and the training epoch is `5`. The dialogue capabilities of other tasks have not disappeared after fine-tuning.
